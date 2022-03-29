@@ -18,6 +18,8 @@ object SnakeFx extends JFXApp3 {
     (200, 200)
   )
 
+  case class State(snake: List[(Double, Double)], food: (Double, Double))
+
   override def start(): Unit = {
     stage = new JFXApp3.PrimaryStage {
       width = 800
