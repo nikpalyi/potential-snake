@@ -65,28 +65,12 @@ object SnakeFx extends JFXApp3 {
       fill = color
     }
 
-  override def start(): Unit = {
-    stage = new JFXApp3.PrimaryStage {
-      width = 800
-      height = 800
-      scene = new Scene {
-        fill = IndianRed
-        // added just now
-        content = new Rectangle {
-          x = 50
-          y = 75
-          width = 20
-          height = 20
-          fill = DarkRed
-        }
+    override def start(): Unit = {
+      val state = ObjectProperty(State(initialSnake, randomFood()))
+      val frame = IntegerProperty(0)
+      val direction = IntegerProperty(4) // right
+
+      frame.onChange {
+        state.update(state.value.newState(direction.value))
       }
-    }
-  }
-  def square(xr: Double, yr: Double, color: Color) = new Rectangle {
-    x = xr
-    y = yr
-    width = 25
-    height = 25
-    fill = color
-  }
 }
