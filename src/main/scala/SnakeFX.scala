@@ -37,6 +37,8 @@ object SnakeFx extends JFXApp3 {
       val newSnake: List[(Double, Double)] =
         if (newx < 0 || newx >= 800 || newy < 0 || newy >= 800 || snake.tail.contains((newx, newy)))
           initialSnake
+        else if (food == (newx, newy))
+          food :: snake
         else ???
   }
 
