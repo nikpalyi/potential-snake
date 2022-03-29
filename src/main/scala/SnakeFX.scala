@@ -47,6 +47,10 @@ object SnakeFx extends JFXApp3 {
             else
               food
       }
+    }
+
+    def randomFood(): (Double, Double) =
+      (Random.nextInt(24) * 25, Random.nextInt(24) * 25)
 
   override def start(): Unit = {
     stage = new JFXApp3.PrimaryStage {
