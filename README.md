@@ -1,1 +1,1 @@
-Snake Game Exercise folloed steps from blog at https://blog.rockthejvm.com/snake/
+Snake Game Exercise followed steps from blog at https://blog.rockthejvm.com/snake/
