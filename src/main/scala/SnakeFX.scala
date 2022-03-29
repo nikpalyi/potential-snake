@@ -11,6 +11,13 @@ import scala.concurrent.Future
 import scala.util.Random
 
 object SnakeFx extends JFXApp3 {
+
+  val initialSnake: List[(Double, Double)] = List(
+    (250, 200),
+    (225, 200),
+    (200, 200)
+  )
+
   override def start(): Unit = {
     stage = new JFXApp3.PrimaryStage {
       width = 800
