@@ -39,7 +39,7 @@ object SnakeFx extends JFXApp3 {
           initialSnake
         else if (food == (newx, newy))
           food :: snake
-        else ???
+        else (newx, newy) :: snake.init
   }
 
 
