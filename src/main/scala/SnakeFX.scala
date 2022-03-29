@@ -19,29 +19,34 @@ object SnakeFx extends JFXApp3 {
   )
 
   case class State(snake: List[(Double, Double)], food: (Double, Double)) {
-//    update the new head of the snake, given the direction
-//    update the rest of the snake by placing the last n-1 squares at the positions of the first n-1 squares
-//    check if we’re out of the scene boundaries OR eating our own tail;
-//    reset the state in this case
-//    check if the snake is just eating the food;
-//    re-generate food coordinates in that case
+    //    update the new head of the snake, given the direction
+    //    update the rest of the snake by placing the last n-1 squares at the positions of the first n-1 squares
+    //    check if we’re out of the scene boundaries OR eating our own tail;
+    //    reset the state in this case
+    //    check if the snake is just eating the food;
+    //    re-generate food coordinates in that case
     def newState(dir: Int): State = {
-  val (x, y) = snake.head
-  val (newx, newy) = dir match {
-    case 1 => (x, y - 25) // up
-    case 2 => (x, y + 25) // down
-    case 3 => (x - 25, y) // left
-    case 4 => (x + 25, y) // right
-    case _ => (x, y)
+      val (x, y) = snake.head
+      val (newx, newy) = dir match {
+        case 1 => (x, y - 25) // up
+        case 2 => (x, y + 25) // down
+        case 3 => (x - 25, y) // left
+        case 4 => (x + 25, y) // right
+        case _ => (x, y)
 
-      val newSnake: List[(Double, Double)] =
-        if (newx < 0 || newx >= 800 || newy < 0 || newy >= 800 || snake.tail.contains((newx, newy)))
-          initialSnake
-        else if (food == (newx, newy))
-          food :: snake
-        else (newx, newy) :: snake.init
-  }
+          val newSnake: List[(Double, Double)] =
+            if (newx < 0 || newx >= 800 || newy < 0 || newy >= 800 || snake.tail.contains((newx, newy)))
+              initialSnake
+            else if (food == (newx, newy))
+              food :: snake
+            else (newx, newy) :: snake.init //  coordinates of the first n-1 pieces of the snake.
 
+          val newFood =
+            if (food == (newx, newy))
+              randomFood()
+            else
+              food
+      }
 
   override def start(): Unit = {
     stage = new JFXApp3.PrimaryStage {
