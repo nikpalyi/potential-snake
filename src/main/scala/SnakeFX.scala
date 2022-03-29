@@ -46,6 +46,11 @@ object SnakeFx extends JFXApp3 {
               randomFood()
             else
               food
+
+          State(newSnake, newFood)
+      }
+      def rectangles: List[Rectangle] = square(food._1, food._2, Red) :: snake.map {
+        case (x, y) => square(x, y, Green)
       }
     }
 
