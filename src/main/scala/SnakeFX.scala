@@ -57,6 +57,14 @@ object SnakeFx extends JFXApp3 {
     def randomFood(): (Double, Double) =
       (Random.nextInt(24) * 25, Random.nextInt(24) * 25)
 
+    def square(xr: Double, yr: Double, color: Color) = new Rectangle {
+      x = xr
+      y = yr
+      width = 25
+      height = 25
+      fill = color
+    }
+
   override def start(): Unit = {
     stage = new JFXApp3.PrimaryStage {
       width = 800
