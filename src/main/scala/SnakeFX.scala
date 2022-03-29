@@ -16,16 +16,23 @@ object SnakeFx extends JFXApp3 {
       width = 800
       height = 800
       scene = new Scene {
-        fill = LightGreen
+        fill = IndianRed
         // added just now
         content = new Rectangle {
           x = 50
           y = 75
-          width = 25
-          height = 25
-          fill = DarkGreen
+          width = 20
+          height = 20
+          fill = DarkRed
         }
       }
     }
+  }
+  def square(xr: Double, yr: Double, color: Color) = new Rectangle {
+    x = xr
+    y = yr
+    width = 25
+    height = 25
+    fill = color
   }
 }
