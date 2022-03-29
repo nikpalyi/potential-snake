@@ -18,7 +18,10 @@ object SnakeFx extends JFXApp3 {
     (200, 200)
   )
 
-  case class State(snake: List[(Double, Double)], food: (Double, Double))
+  case class State(snake: List[(Double, Double)], food: (Double, Double)) {
+    def newState(dir: Int): State = ???
+
+  }
 
   override def start(): Unit = {
     stage = new JFXApp3.PrimaryStage {
