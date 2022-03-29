@@ -18,13 +18,15 @@ object SnakeFx extends JFXApp3 {
     (200, 200)
   )
 
+  import scala.concurrent.ExecutionContext.Implicits.global
+
+  def gameLoop(update: () => Unit): Unit =
+    Future {
+      update()
+      Thread.sleep(1000 / 25 * 2)
+    }.flatMap(_ => Future(gameLoop(update)))
+
   case class State(snake: List[(Double, Double)], food: (Double, Double)) {
-    //    update the new head of the snake, given the direction
-    //    update the rest of the snake by placing the last n-1 squares at the positions of the first n-1 squares
-    //    check if we’re out of the scene boundaries OR eating our own tail;
-    //    reset the state in this case
-    //    check if the snake is just eating the food;
-    //    re-generate food coordinates in that case
     def newState(dir: Int): State = {
       val (x, y) = snake.head
       val (newx, newy) = dir match {
@@ -33,6 +35,7 @@ object SnakeFx extends JFXApp3 {
         case 3 => (x - 25, y) // left
         case 4 => (x + 25, y) // right
         case _ => (x, y)
+      }
 
           val newSnake: List[(Double, Double)] =
             if (newx < 0 || newx >= 800 || newy < 0 || newy >= 800 || snake.tail.contains((newx, newy)))
@@ -49,6 +52,7 @@ object SnakeFx extends JFXApp3 {
 
           State(newSnake, newFood)
       }
+
       def rectangles: List[Rectangle] = square(food._1, food._2, Red) :: snake.map {
         case (x, y) => square(x, y, Green)
       }
@@ -60,8 +64,8 @@ object SnakeFx extends JFXApp3 {
     def square(xr: Double, yr: Double, color: Color) = new Rectangle {
       x = xr
       y = yr
-      width = 25
-      height = 25
+      width = 20
+      height = 20
       fill = color
     }
 
@@ -73,4 +77,26 @@ object SnakeFx extends JFXApp3 {
       frame.onChange {
         state.update(state.value.newState(direction.value))
       }
-}
+
+      stage = new JFXApp3.PrimaryStage {
+        width = 800
+        height = 800
+        scene = new Scene {
+          fill = IndianRed
+          content = state.value.rectangles
+          onKeyPressed = key => key.getText match {
+            case "w" => direction.value = 1
+            case "s" => direction.value = 2
+            case "a" => direction.value = 3
+            case "d" => direction.value = 4
+          }
+
+          state.onChange(Platform.runLater {
+            content = state.value.rectangles
+          })
+        }
+      }
+
+      gameLoop(() => frame.update(frame.value + 1))
+    }
+  }
