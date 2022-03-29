@@ -33,6 +33,11 @@ object SnakeFx extends JFXApp3 {
     case 3 => (x - 25, y) // left
     case 4 => (x + 25, y) // right
     case _ => (x, y)
+
+      val newSnake: List[(Double, Double)] =
+        if (newx < 0 || newx >= 800 || newy < 0 || newy >= 800 || snake.tail.contains((newx, newy)))
+          initialSnake
+        else ???
   }
 
 
