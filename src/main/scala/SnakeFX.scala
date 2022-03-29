@@ -13,10 +13,10 @@ import scala.util.Random
 object SnakeFx extends JFXApp3 {
   override def start(): Unit = {
     stage = new JFXApp3.PrimaryStage {
-      width = 600
-      height = 600
+      width = 800
+      height = 800
       scene = new Scene {
-        fill = White
+        fill = LightGreen
         // added just now
         content = new Rectangle {
           x = 50
